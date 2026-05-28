@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Anityam Asukham — May 28, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --bg2: #111111;
+    --bg3: #1a1a1a;
+    --text: #e8e8e8;
+    --text2: #999;
+    --text3: #555;
+    --border: #222;
+    --orange: #e07030;
+    --green: #4a8c5c;
+    --white: #f0f0f0;
+    --card-bg: #131313;
+    --glow: rgba(224, 112, 48, 0.08);
+  }
+  [data-theme="light"] {
+    --bg: #f5f5f3;
+    --bg2: #eeeeec;
+    --bg3: #e5e5e3;
+    --text: #111111;
+    --text2: #555;
+    --text3: #aaa;
+    --border: #ddd;
+    --card-bg: #ffffff;
+    --glow: rgba(224, 112, 48, 0.06);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    width: 100%;
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.7;
+    transition: background 0.4s, color 0.4s;
+    overflow-x: hidden;
+  }
+
+  /* PAGES */
+  .page {
+    display: none;
+    min-height: 100vh;
+    padding: 0 0 80px 0;
+    animation: fadeIn 0.5s ease;
+  }
+  .page.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* HEADER */
+  .top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    backdrop-filter: blur(8px);
+  }
+  .top-bar-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .home-link {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--text3);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    transition: color 0.2s;
+    border: 1px solid var(--border);
+    padding: 4px 8px;
+    border-radius: 3px;
+  }
+  .home-link:hover { color: var(--orange); border-color: var(--orange); }
+  .date-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: var(--text3);
+    letter-spacing: 0.1em;
+  }
+  .top-bar-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* CAT TOGGLE */
+  .cat-btn {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s, transform 0.2s;
+    flex-shrink: 0;
+  }
+  .cat-btn:hover { border-color: var(--orange); transform: scale(1.1); }
+  .cat-btn:active { transform: scale(0.95); }
+
+  /* HERO */
+  .hero {
+    padding: 48px 20px 32px;
+    text-align: center;
+    position: relative;
+  }
+  .shloka-devanagari {
+    font-size: 22px;
+    line-height: 1.8;
+    color: var(--orange);
+    letter-spacing: 0.02em;
+    margin-bottom: 16px;
+    text-shadow: 0 0 40px var(--glow);
+  }
+  .shloka-roman {
+    font-size: 15px;
+    font-style: italic;
+    color: var(--text2);
+    letter-spacing: 0.06em;
+    font-family: 'Space Mono', monospace;
+    margin-bottom: 24px;
+  }
+  .divider {
+    width: 48px;
+    height: 1px;
+    background: var(--orange);
+    opacity: 0.4;
+    margin: 20px auto;
+  }
+  .source-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: var(--green);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .hero-title {
+    font-size: 13px;
+    font-family: 'Space Mono', monospace;
+    color: var(--text3);
+    letter-spacing: 0.06em;
+  }
+
+  /* TIMELINE / KNOWLEDGE LINE */
+  .knowledge-line {
+    padding: 0 20px;
+    margin-top: 8px;
+  }
+  .kl-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: var(--text3);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    padding-left: 2px;
+  }
+  .kl-item {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 28px;
+    position: relative;
+  }
+  .kl-item:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 32px;
+    bottom: -20px;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--border), transparent);
+  }
+  .kl-dot {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    background: var(--bg2);
+    transition: border-color 0.2s;
+  }
+  .kl-item:hover .kl-dot { border-color: var(--orange); }
+  .kl-body {}
+  .kl-word {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--orange);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .kl-meaning {
+    font-size: 17px;
+    color: var(--text);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+  .kl-sub {
+    font-size: 13px;
+    color: var(--text2);
+    margin-top: 4px;
+    font-style: italic;
+    line-height: 1.6;
+  }
+
+  /* CARD */
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px;
+    margin: 0 20px 20px;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: var(--text3); }
+  .card-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .card-label.orange { color: var(--orange); }
+  .card-label.green { color: var(--green); }
+  .card-text {
+    font-size: 16px;
+    color: var(--text);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+  .card-text strong {
+    color: var(--text);
+    font-weight: 400;
+  }
+  .essence-box {
+    background: var(--bg3);
+    border-left: 2px solid var(--orange);
+    padding: 14px 16px;
+    margin: 0 20px 20px;
+    border-radius: 0 4px 4px 0;
+  }
+  .essence-text {
+    font-size: 17px;
+    font-style: italic;
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  /* PAGE 2 */
+  .section-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: var(--text3);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 24px 20px 12px;
+  }
+  .adjacent-verse {
+    margin: 0 20px 20px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .av-devanagari {
+    background: var(--bg3);
+    padding: 16px 18px;
+    font-size: 14px;
+    line-height: 2;
+    color: var(--text2);
+    border-bottom: 1px solid var(--border);
+  }
+  .av-roman {
+    padding: 14px 18px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--text3);
+    font-style: italic;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid var(--border);
+    line-height: 1.8;
+  }
+  .av-meaning {
+    padding: 14px 18px;
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+  .tension-card {
+    margin: 0 20px 20px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 18px;
+  }
+  .tension-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .tension-icon { font-size: 16px; flex-shrink: 0; margin-top: 2px; }
+  .tension-text { font-size: 15px; color: var(--text); line-height: 1.65; font-weight: 300; }
+  .reconcile {
+    background: var(--bg3);
+    border: 1px solid var(--green);
+    border-radius: 6px;
+    padding: 18px 20px;
+    margin: 0 20px 20px;
+  }
+  .reconcile-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: var(--green);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .reconcile-line {
+    font-size: 18px;
+    font-style: italic;
+    color: var(--text);
+    margin-bottom: 6px;
+    line-height: 1.6;
+  }
+  .reconcile-sub {
+    font-size: 13px;
+    color: var(--text2);
+    font-family: 'Space Mono', monospace;
+    letter-spacing: 0.06em;
+  }
+
+  /* GURUJI NOTE */
+  .guruji-note {
+    margin: 0 20px 20px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 18px;
+  }
+  .guruji-quote {
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.8;
+    font-style: italic;
+    font-weight: 300;
+  }
+  .guruji-attr {
+    margin-top: 10px;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: var(--text3);
+    letter-spacing: 0.1em;
+  }
+
+  /* PAGINATION */
+  .pagination {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 100;
+  }
+  .pg-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text2);
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    padding: 8px 14px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .pg-btn:hover { border-color: var(--orange); color: var(--orange); }
+  .pg-btn:disabled { opacity: 0.2; cursor: default; }
+  .pg-btn:disabled:hover { border-color: var(--border); color: var(--text2); }
+  .pg-dots {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  .pg-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--border);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .pg-dot.active { background: var(--orange); transform: scale(1.3); }
+
+  /* SWIPE HINT */
+  .swipe-hint {
+    text-align: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: var(--text3);
+    letter-spacing: 0.1em;
+    padding: 8px 0 4px;
+  }
+
+  /* SCROLL REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-left">
+    <a href="https://www.vishalmerani.com" class="home-link" target="_blank">↗ vishalmerani.com</a>
+    <span class="date-tag">MAY 28, 2026</span>
+  </div>
+  <div class="top-bar-right">
+    <button class="cat-btn" id="themeBtn" title="Toggle light/dark mode" aria-label="Toggle theme">🐱</button>
+  </div>
+</div>
+
+<!-- PAGE 1 -->
+<div class="page active" id="page1">
+  <div class="hero reveal">
+    <div class="source-tag">Bhagavad Gita · Ch. 9 · Arjuna &amp; Krishna</div>
+    <div class="shloka-devanagari">अनित्यमसुखं लोकमिमं<br>प्राप्य भजस्व माम्</div>
+    <div class="shloka-roman">anityam asukhaṁ lokam imaṁ prāpya bhajasva mām</div>
+    <div class="divider"></div>
+    <div class="hero-title">One shloka to return to centre</div>
+  </div>
+
+  <div class="knowledge-line">
+    <div class="kl-label">The knowledge line</div>
+
+    <div class="kl-item reveal">
+      <div class="kl-dot">🍂</div>
+      <div class="kl-body">
+        <div class="kl-word">Anityam</div>
+        <div class="kl-meaning">This world is impermanent.</div>
+        <div class="kl-sub">We live as though it will last forever — as though we will live forever. Anityam is the reminder: everything changes, everything passes.</div>
+      </div>
+    </div>
+
+    <div class="kl-item reveal">
+      <div class="kl-dot">🫧</div>
+      <div class="kl-body">
+        <div class="kl-word">Asukham</div>
+        <div class="kl-meaning">Lasting happiness cannot be found here.</div>
+        <div class="kl-sub">Not "zero joy" — but no <em>permanent</em> bliss. Joy → attachment → fear of loss → sorrow. That cycle is Asukham.</div>
+      </div>
+    </div>
+
+    <div class="kl-item reveal">
+      <div class="kl-dot">🌍</div>
+      <div class="kl-body">
+        <div class="kl-word">Lokam Imam Prāpya</div>
+        <div class="kl-meaning">Having come into this world / understood this truth —</div>
+        <div class="kl-sub">The pivot. Not a rejection of life, but a clarity about its nature.</div>
+      </div>
+    </div>
+
+    <div class="kl-item reveal">
+      <div class="kl-dot">🕊️</div>
+      <div class="kl-body">
+        <div class="kl-word">Bhajasva Mām</div>
+        <div class="kl-meaning">Remember, seek, abide in the Divine.</div>
+        <div class="kl-sub">"Remember me" — not a personality. The Divine reality that is permanent, blissful, the source of all.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="essence-box reveal">
+    <div class="essence-text">"This world is temporary and incapable of giving permanent joy — therefore turn your mind toward the Divine."</div>
+  </div>
+
+  <div class="card reveal">
+    <div class="card-label orange">Guruji's key — when miserable, say:</div>
+    <div class="card-text">"Oh! I forgot — <strong>Anityam Asukham Lokam Imam Prāpya Bhajasva Mām</strong>"<br><br>And you immediately return to centre.</div>
+  </div>
+
+  <div class="swipe-hint">← swipe or use arrows below to go deeper →</div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="page2">
+  <div class="section-title">Going deeper — the full picture</div>
+
+  <div class="card reveal">
+    <div class="card-label green">But the world also gives joy?</div>
+    <div class="card-text">Yes — and Krishna celebrates it. The Gita is full of beauty, love, music, friendship, dharma, rasa. Even God came to the world to <em>experience</em> joy. The point of Asukham is subtler: worldly joy is temporary, mixed, and dependent — it cannot be the <em>source</em> of lasting bliss.</div>
+  </div>
+
+  <div class="section-title">Adjacent verse — the wise person's relationship to pleasure</div>
+
+  <div class="adjacent-verse reveal">
+    <div class="av-devanagari">ये हि संस्पर्शजा भोगा दुःखयोनय एव ते<br>आद्यन्तवन्तः कौन्तेय न तेषु रमते बुधः</div>
+    <div class="av-roman">ye hi saṁsparśajā bhogā duḥkha-yonaya eva te<br>ādy-antavantaḥ kaunteya na teṣu ramate budhaḥ</div>
+    <div class="av-meaning">Pleasures born of the senses have a beginning and an end — and therefore bring dissatisfaction. The wise enjoy them without becoming <em>trapped</em> by them.</div>
+  </div>
+
+  <div class="section-title">The tension — and how Vedanta holds both</div>
+
+  <div class="tension-card reveal">
+    <div class="tension-row">
+      <div class="tension-icon">🌊</div>
+      <div class="tension-text">Joy arrives. It is real. Receive it fully.</div>
+    </div>
+    <div class="tension-row">
+      <div class="tension-icon">🍃</div>
+      <div class="tension-text">Joy changes. It passes. Don't cling.</div>
+    </div>
+    <div class="tension-row">
+      <div class="tension-icon">🎭</div>
+      <div class="tension-text">Krishna's lila — play, dance, love, friendship — is full participation in life.</div>
+    </div>
+    <div class="tension-row">
+      <div class="tension-icon">🔑</div>
+      <div class="tension-text">Vedanta doesn't reject the world. It warns against expecting the <em>finite</em> to give <em>infinite</em> satisfaction.</div>
+    </div>
+  </div>
+
+  <div class="reconcile reveal">
+    <div class="reconcile-label">The reconciliation</div>
+    <div class="reconcile-line">Enjoy the world. Don't depend on it for permanent bliss.</div>
+    <div class="reconcile-sub">or in Vedantic language:<br>Participate fully, possess lightly.</div>
+  </div>
+
+  <div class="section-title">Origin of this note</div>
+
+  <div class="guruji-note reveal">
+    <div class="guruji-quote">"When Guruji said it for the first time, I could not remember the entire shloka — but when he explained part by part, it's not easy to forget it :-)"</div>
+    <div class="guruji-attr">— Meenu · knowledgesheet.blogspot.com · Feb 14, 2009<br>From Guruji's talk: <em>Secret of Secrets</em></div>
+  </div>
+
+  <div class="card reveal">
+    <div class="card-label orange">Why this shloka centres you</div>
+    <div class="card-text">When misery arises, it is almost always because we expected permanence from the impermanent, or bliss from the world. The shloka names exactly that error — and in naming it, dissolves it. The remembering <em>is</em> the return.</div>
+  </div>
+</div>
+
+<!-- PAGINATION -->
+<div class="pagination">
+  <button class="pg-btn" id="prevBtn" disabled onclick="goTo(currentPage - 1)">← PREV</button>
+  <div class="pg-dots">
+    <div class="pg-dot active" onclick="goTo(1)"></div>
+    <div class="pg-dot" onclick="goTo(2)"></div>
+  </div>
+  <button class="pg-btn" id="nextBtn" onclick="goTo(currentPage + 1)">NEXT →</button>
+</div>
+
+<script>
+  let currentPage = 1;
+  const totalPages = 2;
+
+  function goTo(n) {
+    if (n < 1 || n > totalPages) return;
+    document.getElementById('page' + currentPage).classList.remove('active');
+    currentPage = n;
+    document.getElementById('page' + currentPage).classList.add('active');
+    document.getElementById('prevBtn').disabled = currentPage === 1;
+    document.getElementById('nextBtn').disabled = currentPage === totalPages;
+    document.querySelectorAll('.pg-dot').forEach((d, i) => {
+      d.classList.toggle('active', i + 1 === currentPage);
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(revealAll, 100);
+  }
+
+  // Theme toggle with cat personality
+  const themes = [
+    { theme: 'dark', cat: '🐱', tip: 'Dark mode' },
+    { theme: 'light', cat: '😸', tip: 'Light mode' }
+  ];
+  let themeIndex = 0;
+  const btn = document.getElementById('themeBtn');
+  btn.addEventListener('click', () => {
+    themeIndex = (themeIndex + 1) % themes.length;
+    const t = themes[themeIndex];
+    document.documentElement.setAttribute('data-theme', t.theme);
+    btn.textContent = t.cat;
+    btn.title = t.tip;
+  });
+
+  // Swipe support
+  let touchStartX = 0;
+  document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  document.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 60) goTo(currentPage + (dx < 0 ? 1 : -1));
+  }, { passive: true });
+
+  // Reveal on scroll
+  function revealAll() {
+    const items = document.querySelectorAll('#page' + currentPage + ' .reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    items.forEach(el => observer.observe(el));
+  }
+  revealAll();
+</script>
+</body>
+</html>
